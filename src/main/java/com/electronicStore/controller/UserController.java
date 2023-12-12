@@ -51,8 +51,10 @@ public class UserController {
     //get all users
     @GetMapping()
     public List<UserDto> getAll(@RequestParam( value = "pageNumber",defaultValue ="0",required = false) int pageNumber,
-                                @RequestParam(value = "pageSize", defaultValue = "10",required = false) int pageSize){
-        return userService.getAllUsers(pageNumber,pageSize);
+                                @RequestParam(value = "pageSize", defaultValue = "10",required = false) int pageSize,
+                                @RequestParam( value = "sortBy",defaultValue ="name",required = false) String sortBy,
+                                @RequestParam( value = "sortDir",defaultValue ="asc",required = false) String sortDir){
+        return userService.getAllUsers(pageNumber,pageSize,sortBy,sortDir);
     }
 
 
