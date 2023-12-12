@@ -42,4 +42,13 @@ public class GlobalExceptionHandler {
 
         return  new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
     }
+
+    // to handle file related extension
+    @ExceptionHandler(BadApiRequest.class)
+    public ResponseEntity<ApiResponseMessage> badApiRequestExceptionHandler(BadApiRequest ex){
+        logger.info("Bad API request !! ");
+        ApiResponseMessage status = ApiResponseMessage.builder().message(ex.getMessage()).success(false).build();
+        return  new ResponseEntity<>(status,HttpStatus.BAD_REQUEST);
+
+    }
 }
