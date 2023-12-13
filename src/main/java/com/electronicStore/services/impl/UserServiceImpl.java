@@ -9,6 +9,7 @@ import com.electronicStore.repository.UserRepository;
 import com.electronicStore.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,10 @@ public class UserServiceImpl implements UserService {
     public UserRepository userRepository;
     @Autowired
     public ModelMapper modelMapper;
+    @Value("${user.profile.image.path}")
+    private  String imageUploadPath;
+
+
     @Override
     public UserDto create(UserDto userDto) {
         String userId= UUID.randomUUID().toString();

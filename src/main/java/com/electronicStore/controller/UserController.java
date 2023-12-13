@@ -6,6 +6,8 @@ import com.electronicStore.dtos.UserDto;
 import com.electronicStore.services.FileService;
 import com.electronicStore.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -27,6 +33,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private FileService fileService;
+
+   private Logger logger= LoggerFactory.getLogger(UserController.class);
 
     @Value("${user.profile.image.path}")
     private  String imageUploadPath;
@@ -49,7 +57,23 @@ public class UserController {
     //delete
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable String userId){
+
+        UserDto user = userService.getUserById(userId);
         userService.deleteUser(userId);
+
+        String fullPath= imageUploadPath+user.getImageName();
+        try {
+            Path path = Paths.get(fullPath);
+            Files.delete(path);
+
+        }catch (NoSuchFileException ex){
+            logger.info("User image not found in folder");
+            ex.printStackTrace();
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
     }
 
     //get single user by id
