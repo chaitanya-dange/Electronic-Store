@@ -52,7 +52,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public InputStream getResource(String path, String name) throws FileNotFoundException {
 
-        String fullPath =path+File.separator+name;
+        String fullPath =path+name;
         InputStream inputStream = new FileInputStream(fullPath);
         return inputStream;
     }
