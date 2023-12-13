@@ -7,10 +7,13 @@ import com.electronicStore.repository.CategoryRepository;
 import com.electronicStore.services.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Stream;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
@@ -22,6 +25,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto createCategory(CategoryDto categoryDto) {
         Category category = modelMapper.map(categoryDto, Category.class);
+        category.setCategoryId(UUID.randomUUID().toString());
+
         Category categoryReceive = categoryRepository.save(category);
 
         return modelMapper.map(categoryReceive,CategoryDto.class);

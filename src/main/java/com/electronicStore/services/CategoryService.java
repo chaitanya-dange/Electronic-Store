@@ -1,6 +1,7 @@
 package com.electronicStore.services;
 
 import com.electronicStore.dtos.CategoryDto;
+import com.electronicStore.dtos.PageableResponse;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface CategoryService {
 
 
     // get all category
-     List<CategoryDto> getAllCategory();
+  List<CategoryDto> getAllCategory();
 
     // get category by id
     public CategoryDto getCategoryById(String categoryId);
