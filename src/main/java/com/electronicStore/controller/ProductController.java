@@ -39,10 +39,11 @@ public class ProductController {
     }
 
     // get all products
+    @GetMapping()
     public ResponseEntity<PageableResponse<ProductDto>> getAllProducts(
             @RequestParam( value = "pageNumber",defaultValue ="0",required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "10",required = false) int pageSize,
-            @RequestParam( value = "sortBy",defaultValue ="name",required = false) String sortBy,
+            @RequestParam( value = "sortBy",defaultValue ="title",required = false) String sortBy,
             @RequestParam( value = "sortDir",defaultValue ="asc",required = false) String sortDir
     ){
         PageableResponse<ProductDto> allProducts = productService.getAllProducts(pageNumber, pageSize, sortBy, sortDir);
@@ -66,7 +67,7 @@ public class ProductController {
     public ResponseEntity<PageableResponse<ProductDto>> getAllLiveProductList (
             @RequestParam( value = "pageNumber",defaultValue ="0",required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "10",required = false) int pageSize,
-            @RequestParam( value = "sortBy",defaultValue ="name",required = false) String sortBy,
+            @RequestParam( value = "sortBy",defaultValue ="title",required = false) String sortBy,
             @RequestParam( value = "sortDir",defaultValue ="asc",required = false) String sortDir){
         PageableResponse<ProductDto> allLiveProduct = productService.getAllLiveProduct(pageNumber, pageSize, sortBy, sortDir);
         return ResponseEntity.ok(allLiveProduct);
@@ -77,7 +78,7 @@ public class ProductController {
     public ResponseEntity<PageableResponse<ProductDto>> getSearchNameProductList (
             @RequestParam( value = "pageNumber",defaultValue ="0",required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "10",required = false) int pageSize,
-            @RequestParam( value = "sortBy",defaultValue ="name",required = false) String sortBy,
+            @RequestParam( value = "sortBy",defaultValue ="title",required = false) String sortBy,
             @RequestParam( value = "sortDir",defaultValue ="asc",required = false) String sortDir,
             @PathVariable String name){
         PageableResponse<ProductDto> allSearchProduct = productService.searchByTitle(name,pageNumber,pageSize,sortBy,sortDir);
