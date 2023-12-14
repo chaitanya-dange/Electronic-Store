@@ -1,11 +1,11 @@
 package com.electronicStore.entities;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -28,4 +28,6 @@ public class Category {
     private String coverImage;
 
     // other fields.
+    @OneToMany(cascade =  CascadeType.ALL,fetch = FetchType.LAZY ,mappedBy = "category")
+    private List<Product> products= new ArrayList<>();
 }

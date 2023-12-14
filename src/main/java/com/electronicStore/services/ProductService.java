@@ -29,4 +29,15 @@ public interface ProductService {
 
 
     //other products methods
+    // create product with category
+    ProductDto createWithCategory(ProductDto productDto,String categoryId);
+
+    // update category of product
+    ProductDto updateProductWithCategory(String productId, String categoryId);
+
+    // get all products of particular category object
+    PageableResponse<ProductDto> getAllProductsOfCategory(String categoryId,int pageNumber, int pageSize , String sortBy, String sortDir);
+
+
+
 }
