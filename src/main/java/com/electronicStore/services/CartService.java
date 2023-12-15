@@ -15,4 +15,7 @@ public interface CartService {
 
     //clear cart
     void clearCart(String userId);
+
+    // get cart by userId
+    CartDto getCartByUserId(String userId);
 }
