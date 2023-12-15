@@ -67,7 +67,7 @@ public class CartServiceImpl  implements CartService {
         updatedItems.stream().map(item -> {
             if(item.getProduct().getProductId().equals(productId)){
                 item.setQuantity(quantity);
-                item.setTotalPrice(quantity*product.getPrice());
+                item.setTotalPrice(quantity*product.getDiscountedPrice());
                 updated.set(true);
 
             }
@@ -82,7 +82,7 @@ public class CartServiceImpl  implements CartService {
             CartItem cartItem = CartItem.builder()
                     .quantity(quantity)
                     .cart(cart)
-                    .totalPrice(quantity * product.getPrice())
+                    .totalPrice(quantity*product.getDiscountedPrice())
                     .product(product)
                     .build();
 
