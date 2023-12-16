@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -81,12 +82,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void removeOrder(String orderId) {
-
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("order not found"));
+        orderRepository.delete(order);
     }
 
     @Override
     public List<OrderDto> getOrdersForUser(String userId) {
-        return null;
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("user not found"));
+        List<Order> ordersList = orderRepository.findByUser(user);
+
+        List<OrderDto> collect = ordersList.stream().map(item -> modelMapper.map(item, OrderDto.class)).collect(Collectors.toList());
+
+        return collect;
     }
 
     @Override
