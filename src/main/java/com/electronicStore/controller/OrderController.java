@@ -19,7 +19,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<OrderDto> createOrderForUser(@RequestBody CreateOrderRequest createOrderRequest){
         OrderDto order = orderService.createOrder(createOrderRequest);
         return  ResponseEntity.ok(order);
@@ -27,7 +27,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{orderId}")
-    public ResponseEntity<ApiResponseMessage> removeOrderOfUser(@PathVariable("/orderId") String orderId){
+    public ResponseEntity<ApiResponseMessage> removeOrderOfUser(@PathVariable("orderId") String orderId){
         orderService.removeOrder(orderId);
         ApiResponseMessage responseMessage = ApiResponseMessage.builder().message("Order deleted successfully").status(HttpStatus.OK).success(true).build();
         return ResponseEntity.ok(responseMessage);
