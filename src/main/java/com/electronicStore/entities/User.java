@@ -4,6 +4,9 @@ package com.electronicStore.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -30,4 +33,7 @@ public class User {
 
     @Column(name = "user_image_name")
     private String imageName;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = CascadeType.REMOVE)
+    private List<Order> orders = new ArrayList<>();
 }
