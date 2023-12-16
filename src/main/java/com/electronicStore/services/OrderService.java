@@ -1,5 +1,6 @@
 package com.electronicStore.services;
 
+import com.electronicStore.dtos.CreateOrderRequest;
 import com.electronicStore.dtos.OrderDto;
 import com.electronicStore.dtos.PageableResponse;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public interface OrderService {
     //create
-    OrderDto createOrder(OrderDto orderDto,String userId,String cartId);
+    OrderDto createOrder(CreateOrderRequest createOrderRequest);
 
     // remove
     void removeOrder(String orderId);

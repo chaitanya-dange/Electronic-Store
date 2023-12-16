@@ -1,5 +1,6 @@
 package com.electronicStore.services.impl;
 
+import com.electronicStore.dtos.CreateOrderRequest;
 import com.electronicStore.dtos.OrderDto;
 import com.electronicStore.dtos.PageableResponse;
 import com.electronicStore.entities.*;
@@ -29,7 +30,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ModelMapper modelMapper;
     @Override
-    public OrderDto createOrder(OrderDto orderDto, String userId,String cartId) {
+    public OrderDto createOrder(CreateOrderRequest createOrderRequest) {
+        String userId=createOrderRequest.getUserId();
+        String cartId=createOrderRequest.getCartId();
         //fetch User
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
         // fetch cart
@@ -40,13 +43,11 @@ public class OrderServiceImpl implements OrderService {
             throw new BadApiRequest("atleast one item should be there.");
         }
         Order order = Order.builder()
-                .billingAddress(orderDto.getBillingAddress())
-                .billingName(orderDto.getBillingName())
-                .billingPhoneNumber(orderDto.getBillingPhoneNumber())
-                .orderAmount(orderDto.getOrderAmount())
-                .orderStatus(orderDto.getOrderStatus())
-                .orderDate(orderDto.getOrderDate())
-                .paymentStatus(orderDto.getPaymentStatus())
+                .billingAddress(createOrderRequest.getBillingAddress())
+                .billingName(createOrderRequest.getBillingName())
+                .billingPhoneNumber(createOrderRequest.getBillingPhoneNumber())
+                .orderStatus(createOrderRequest.getOrderStatus())
+                .paymentStatus(createOrderRequest.getPaymentStatus())
                 .orderId(UUID.randomUUID().toString())
                 .user(user)
                 .build();
