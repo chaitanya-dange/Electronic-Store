@@ -29,7 +29,7 @@ public class Order {
     private String billingAddress;
     private String billingPhoneNumber;
     private String billingName;
-    private Date orderDate;
+    private Date orderDate=new Date();
     private Date deliveredDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -37,7 +37,7 @@ public class Order {
     private User user;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "order",cascade = CascadeType.ALL)
-    private List<OrderItem>userItems = new ArrayList<>();
+    private List<OrderItem>orderItems = new ArrayList<>();
 
 
 }
