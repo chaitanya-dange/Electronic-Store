@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,12 +29,17 @@ public class UserServiceImpl implements UserService {
     public ModelMapper modelMapper;
     @Value("${user.profile.image.path}")
     private  String imageUploadPath;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
     public UserDto create(UserDto userDto) {
         String userId= UUID.randomUUID().toString();
         userDto.setUserId(userId);
+        // setting encoded password
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
         User user = modelMapper.map(userDto, User.class);
         User savedUser = userRepository.save(user);
         UserDto userDto1 = modelMapper.map(savedUser, UserDto.class);
