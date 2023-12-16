@@ -6,12 +6,17 @@ import com.electronicStore.dtos.PageableResponse;
 import com.electronicStore.entities.*;
 import com.electronicStore.exceptions.BadApiRequest;
 import com.electronicStore.exceptions.ResourceNotFoundException;
+import com.electronicStore.helpers.Helper;
 import com.electronicStore.repository.CartRepository;
 import com.electronicStore.repository.OrderRepository;
 import com.electronicStore.repository.UserRepository;
 import com.electronicStore.services.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -98,6 +103,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public PageableResponse<OrderDto> getAllOrders(int pageNumber, int pageSize, String sortBy, String sortDir) {
-        return null;
+        Sort sort= (sortDir.equalsIgnoreCase("desc"))?(Sort.by(sortBy).descending()):(Sort.by(sortBy).ascending());
+        Pageable pageable= PageRequest.of(pageNumber,pageSize,sort);
+        Page<Order> allOrders = orderRepository.findAll(pageable);
+
+        return Helper.getPageableResponse(allOrders,OrderDto.class);
     }
 }
