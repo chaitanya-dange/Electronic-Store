@@ -69,10 +69,11 @@ public class SecurityConfig {
 //        return http.build();
 
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/users/**")
-                        .authenticated()
-                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
-                        .requestMatchers("/auth/login").permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth
+                                .requestMatchers("/auth/login").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+                                .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
