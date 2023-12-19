@@ -2,9 +2,11 @@ package com.electronicStore.services.impl;
 
 import com.electronicStore.dtos.PageableResponse;
 import com.electronicStore.dtos.UserDto;
+import com.electronicStore.entities.Role;
 import com.electronicStore.entities.User;
 import com.electronicStore.exceptions.ResourceNotFoundException;
 import com.electronicStore.helpers.Helper;
+import com.electronicStore.repository.RoleRepository;
 import com.electronicStore.repository.UserRepository;
 import com.electronicStore.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -32,6 +34,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Value("${normal.role.id}")
+    private String normalRoleId;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
 
     @Override
     public UserDto create(UserDto userDto) {
@@ -39,8 +47,11 @@ public class UserServiceImpl implements UserService {
         userDto.setUserId(userId);
         // setting encoded password
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-
         User user = modelMapper.map(userDto, User.class);
+        // fetch role of normal and set it to user
+        Role role = roleRepository.findById(normalRoleId).get();
+        user.getRoles().add(role);
+
         User savedUser = userRepository.save(user);
         UserDto userDto1 = modelMapper.map(savedUser, UserDto.class);
 
