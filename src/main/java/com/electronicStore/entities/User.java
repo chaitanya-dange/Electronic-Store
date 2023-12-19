@@ -37,6 +37,9 @@ public class User implements UserDetails {
     @Column(name = "user_image_name")
     private String imageName;
 
+    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private Cart cart;
+
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<Order> orders = new ArrayList<>();
 
