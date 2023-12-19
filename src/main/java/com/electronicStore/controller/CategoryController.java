@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class CategoryController {
     private ProductService productService;
 
     //create
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
     public CategoryDto createCategory(@Valid @RequestBody CategoryDto categoryDto){
         CategoryDto categoryDtoRec = categoryService.createCategory(categoryDto);
@@ -30,6 +32,7 @@ public class CategoryController {
     }
 
     //update category
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping ("/update/{categoryId}")
     public CategoryDto updateCategory(@RequestBody CategoryDto categoryDto , @PathVariable String categoryId){
 
@@ -37,6 +40,7 @@ public class CategoryController {
         return  categoryDtoRec;
     }
     //delete category
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{categoryId}")
     public void deleteCategory(@PathVariable String categoryId){
         categoryService.deleteCategory(categoryId);
@@ -59,6 +63,7 @@ public class CategoryController {
     }
 
     //create product with category
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping({"/{categoryId}/product"})
     public ResponseEntity<ProductDto> createProductWithCategory(
             @PathVariable("categoryId") String categoryId,
@@ -70,6 +75,7 @@ public class CategoryController {
 
     // update product with category ID
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping({"/{categoryId}/product/{productId}"})
     public  ResponseEntity<ProductDto> updateProductWithCategory(
             @PathVariable("categoryId") String categoryId,
