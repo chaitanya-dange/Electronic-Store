@@ -41,8 +41,9 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/webjars/**",
             "/swagger-resources/**",
-            "/v3/api-docs",
-            "/v2/api-docs"
+            "/v3/api-docs/**",
+            "/v2/api-docs",
+            "/v1/**"
 
     };
 
@@ -82,9 +83,10 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/auth/login").permitAll()
+                                .requestMatchers(PUBLIC_URL_SWAGGER).permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users").permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
-                                .requestMatchers(PUBLIC_URL_SWAGGER).permitAll()
+
                                 .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
