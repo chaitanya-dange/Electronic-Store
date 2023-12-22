@@ -3,6 +3,7 @@ package com.electronicStore.controller;
 import com.electronicStore.dtos.*;
 import com.electronicStore.services.FileService;
 import com.electronicStore.services.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,7 @@ import java.io.InputStream;
 
 @RestController
 @RequestMapping("/products")
+@Tag(name = "ProductController" ,description = "API's for Product Module")
 public class ProductController {
     @Autowired
     private ProductService productService;

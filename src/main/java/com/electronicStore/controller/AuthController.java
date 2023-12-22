@@ -6,6 +6,7 @@ import com.electronicStore.dtos.JwtResponse;
 import com.electronicStore.dtos.UserDto;
 import com.electronicStore.exceptions.BadApiRequest;
 import com.electronicStore.services.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "AuthController" ,description = "API's for authentication")
 public class AuthController {
     @Autowired
     private UserDetailsService userDetailsService;

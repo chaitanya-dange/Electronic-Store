@@ -5,6 +5,7 @@ import com.electronicStore.dtos.PageableResponse;
 import com.electronicStore.dtos.ProductDto;
 import com.electronicStore.services.CategoryService;
 import com.electronicStore.services.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/category")
+@Tag(name = "CategoryController" ,description = "API's for Category Module")
 public class CategoryController {
 
     @Autowired

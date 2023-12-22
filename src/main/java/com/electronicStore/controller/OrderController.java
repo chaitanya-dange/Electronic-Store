@@ -5,6 +5,7 @@ import com.electronicStore.dtos.CreateOrderRequest;
 import com.electronicStore.dtos.OrderDto;
 import com.electronicStore.dtos.PageableResponse;
 import com.electronicStore.services.OrderService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/order")
+@Tag(name = "OrderController" ,description = "API's for Order Module")
 public class OrderController {
 
     @Autowired
