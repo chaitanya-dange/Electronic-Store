@@ -18,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
@@ -74,7 +75,27 @@ public class UserServiceTest {
 
         Assertions.assertNotNull(userDto);
 
+    }
 
+    @Test
+    public  void updateUserTest(){
+        String userId="cahiosfalk";
+        UserDto userDto = UserDto.builder()
+                .name("charlie updated")
+                .email("charlie_updated@gmail.com")
+                .gender("Male")
+                .imageName("ch_updated.png")
+                .build();
+
+        Mockito.when(userRepository.findById(Mockito.anyString())).thenReturn(Optional.of(user));
+        Mockito.when(userRepository.save(Mockito.any())).thenReturn(user);
+
+        UserDto userDtoUpdated=  userService.updateUser(userDto,userId);
+       // UserDto userDtoUpdated = modelMapper.map(user,userDto); // to check if last assertion does work.
+        System.out.println(userDtoUpdated.getName());
+        Assertions.assertNotNull(userDtoUpdated);
+        Assertions.assertEquals(userDtoUpdated.getName(), userDto.getName());
+        // multiple assertion can be put to put object to test .
 
 
     }
