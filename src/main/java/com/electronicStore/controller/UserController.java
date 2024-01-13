@@ -33,6 +33,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @Tag(name = "UserController" ,description = "API's for User Module")
+@CrossOrigin("*")
 public class UserController {
     @Autowired
     private UserService userService;

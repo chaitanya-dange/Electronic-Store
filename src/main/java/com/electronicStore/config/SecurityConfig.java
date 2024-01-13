@@ -83,6 +83,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/auth/login").permitAll()
+                                .requestMatchers("/auth/google").permitAll()
                                 .requestMatchers(PUBLIC_URL_SWAGGER).permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users").permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
