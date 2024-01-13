@@ -2,9 +2,12 @@ package com.electronicStore.services;
 
 import com.electronicStore.dtos.PageableResponse;
 import com.electronicStore.dtos.UserDto;
+import com.electronicStore.entities.User;
 import com.electronicStore.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
+
 
 public interface UserService {
     //create
@@ -21,6 +24,10 @@ public interface UserService {
     UserDto getUserByEmail(String userId);
 
     List<UserDto> searchBy(String keyWord);
+
+    // for checking google email
+
+    Optional<User> findUserByEmailOptional(String email);
 
 
 

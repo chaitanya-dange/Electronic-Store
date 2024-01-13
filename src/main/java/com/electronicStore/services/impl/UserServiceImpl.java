@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -108,5 +109,10 @@ public class UserServiceImpl implements UserService {
         List<User> userReceived = userRepository.findByNameContaining(keyWord);
         List<UserDto> listOfDto = userReceived.stream().map(user -> modelMapper.map(user, UserDto.class)).toList();
         return listOfDto;
+    }
+
+    @Override
+    public Optional<User> findUserByEmailOptional(String email) {
+        return userRepository.findByEmail(email);
     }
 }
